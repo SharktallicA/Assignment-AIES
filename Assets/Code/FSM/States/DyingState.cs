@@ -37,7 +37,7 @@ namespace Assets.Code.FSM
         /// </summary>
         public override void Start()
         {
-            Debug.Log(parent.transform.name + ": entered Dying State");
+            if (sm.debug) Debug.Log(parent.transform.name + ": entered Dying State");
             base.Start();
             Object.Destroy(parent.gameObject);
         }

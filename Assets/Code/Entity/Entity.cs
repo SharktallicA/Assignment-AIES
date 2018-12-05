@@ -35,10 +35,20 @@ public class Entity : MonoBehaviour
 
     }
 
+    public virtual void derivedUpdate()
+    {
+
+    }
+
     private void Start()
     {
         controller = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         derivedStart();
+    }
+
+    private void Update()
+    {
+        derivedUpdate();
     }
 
     /// <summary>

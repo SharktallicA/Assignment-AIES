@@ -1481,7 +1481,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1021661771423600}
   m_LocalRotation: {x: -0, y: -0.9925674, z: 0, w: -0.12169606}
-  m_LocalPosition: {x: 11.64, y: 0, z: 9.13}
+  m_LocalPosition: {x: 15, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4394813862525060}
@@ -1888,7 +1888,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
   selfPrefab:
-  - {fileID: 0}
+  - {fileID: 1021661771423600}
+  hunger: 100
   feed: 0
 --- !u!114 &114243615601083526
 MonoBehaviour:
@@ -1901,6 +1902,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0855c8180eb990943aebd3b38cdef086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 0
 --- !u!137 &137003794806405794
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

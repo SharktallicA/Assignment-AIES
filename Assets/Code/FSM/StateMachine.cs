@@ -1,4 +1,5 @@
-﻿using Assets.Code.FSM;
+﻿using System;
+using Assets.Code.FSM;
 using UnityEngine;
 
 /// <summary>
@@ -11,6 +12,11 @@ public class StateMachine : MonoBehaviour
     /// 
     /// </summary>
     private State current;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public bool debug = false;
 
     private void Update()
     {
@@ -26,5 +32,14 @@ public class StateMachine : MonoBehaviour
     {
         current = nState;
         current.Start();
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public State GetState()
+    {
+        return current;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Assets.Code;
 using Assets.Code.FSM;
+using UnityEngine;
 
 /// <summary>
 /// 
@@ -13,15 +14,15 @@ class WorkerAnt : Entity
 
     public override void derivedStart()
     {
-        dna = new DNA();
-        GetComponent<StateMachine>().ChangeState(new FindingFoodState(GetComponent<StateMachine>(), this));
+       dna = new DNA();
+       GetComponent<StateMachine>().ChangeState(new FindingFoodState(GetComponent<StateMachine>(), this));
     }
 
     /// <summary>
     /// Interrupts what the ant is doing to make it make with the Queen
     /// </summary>
-    public void GivePheromone()
+    public void GivePheromone(Vector3 loc)
     {
-        GetComponent<StateMachine>().ChangeState(new FindQueenState(GetComponent<StateMachine>(), this));
+        GetComponent<StateMachine>().ChangeState(new AttractedState(GetComponent<StateMachine>(), this, GetComponent<StateMachine>().GetState(), loc));
     }
 }

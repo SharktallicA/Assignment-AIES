@@ -22,7 +22,7 @@ namespace Assets.Code
         /// </summary>
         public float hunger;
 
-        public DNA(float nSpeed = 2.5f, float nSight = 0.25f, float nHunger = 0.25f)
+        public DNA(float nSpeed = 2.5f, float nSight = 3f, float nHunger = 0.15f)
         {
             speed = nSpeed;
             sight = nSight;
