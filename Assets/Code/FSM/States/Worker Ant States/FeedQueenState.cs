@@ -48,7 +48,7 @@ namespace Assets.Code.FSM
         /// </summary>
         public override void Transition()
         {
-            if (parent.transform.childCount > 1)
+            while (parent.transform.childCount > 1)
                 ((QueenAnt)target).GiveFood(parent.transform.GetChild(1).GetComponent<Fungi>());
             base.Transition();
         }

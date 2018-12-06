@@ -31,6 +31,8 @@ class QueenAnt : Entity
     {
         dna = new DNA();
         GetComponent<StateMachine>().ChangeState(new FeedingState(GetComponent<StateMachine>(), this));
+        transform.GetChild(0).GetComponent<Animator>().enabled = false;
+        transform.GetChild(0).GetComponent<Animator>().speed = dna.speed / 2;
     }
 
     public override void derivedUpdate()
@@ -44,6 +46,7 @@ class QueenAnt : Entity
     /// <param name="food"></param>
     public void GiveFood(Fungi food)
     {
+        food.transform.SetParent(transform);
         food.GetComponent<StateMachine>().ChangeState(new DyingState(food.GetComponent<StateMachine>(), food));
         feed++;
         hunger = 100f;

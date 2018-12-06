@@ -55,7 +55,11 @@ namespace Assets.Code.FSM
             base.Update();
             //Move towards pheromone source
             if (parent.MoveTo(targetPos, 0f, ((WorkerAnt)parent).dna.speed))
+            {
+                while (parent.transform.childCount > 1)
+                    Object.FindObjectsOfType<QueenAnt>()[0].GetComponent<QueenAnt>().GiveFood(parent.transform.GetChild(1).GetComponent<Fungi>());
                 Transition();
+            }
         }
     }
 }

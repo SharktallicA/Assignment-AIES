@@ -16,6 +16,7 @@
 
 */
 
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Code.FSM
@@ -27,9 +28,10 @@ namespace Assets.Code.FSM
     {
         private void findFungi()
         {
+            target = null;
             Fungi[] potentials = Object.FindObjectsOfType<Fungi>();
-
-            //if no fungi is available, ant dies (RIP
+     
+            //if no fungi is available, ant dies (RIP)
             if (potentials.Length == 0)
             {
                 endState = new DyingState(sm, parent);
@@ -37,8 +39,20 @@ namespace Assets.Code.FSM
                 return;
             }
 
-            //
-            target = potentials[Random.Range(0, potentials.Length)];
+            List<Fungi> untaken = new List<Fungi>();
+            for (int i = 0; i < potentials.Length; i++)
+                if (!potentials[i].taken)
+                    untaken.Add(potentials[i]);
+
+            //if no fungi is free, ant dies (RIP)
+            if (untaken.Count == 0)
+            {
+                endState = new DyingState(sm, parent);
+                Transition();
+                return;
+            }
+
+            target = untaken[Random.Range(0, untaken.Count)];
         }
 
         /// <summary>
@@ -46,6 +60,7 @@ namespace Assets.Code.FSM
         /// </summary>
         private void checkIfOneCloser()
         {
+            if (!target) return;
             Collider[] hitColliders = Physics.OverlapSphere(parent.transform.position, ((WorkerAnt)parent).dna.sight * 2);
 
             for (int i = 0; i < hitColliders.Length; i++)
@@ -54,8 +69,11 @@ namespace Assets.Code.FSM
                 {
                     if (!hitColliders[i].transform.parent.GetComponent<Fungi>().taken)
                     {
-                        target = hitColliders[i].transform.parent.GetComponent<Entity>();
-                        return;
+                        if (Vector3.Distance(hitColliders[i].transform.position, parent.transform.position) < Vector3.Distance(target.transform.position, parent.transform.position))
+                        {
+                            target = hitColliders[i].transform.parent.GetComponent<Entity>();
+                            return;
+                        }
                     }
                 }
             }
@@ -112,8 +130,15 @@ namespace Assets.Code.FSM
         /// </summary>
         public override void Transition()
         {
-            ((Fungi)target).taken = true;
-            target.transform.SetParent(parent.transform);
+            if (target != null)
+            {
+                ((Fungi)target).taken = true;
+                target.transform.SetParent(parent.transform);
+            }
+            else
+            {
+
+            }
             base.Transition();
         }
     }

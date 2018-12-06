@@ -22,35 +22,37 @@ namespace Assets.Code
         /// </summary>
         public float hunger;
 
-        public DNA(float nSpeed = 2.5f, float nSight = 3f, float nHunger = 0.15f)
+        public DNA()
         {
-            speed = nSpeed;
-            sight = nSight;
-            hunger = nHunger;
+            speed = Random.Range(2.95f, 3.05f);
+            sight = Random.Range(2.95f, 3.05f);
+            hunger = Random.Range(0.1f, 0.2f);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public float GetFitness() { return ((speed + sight - hunger) / 3); }
+        public float GetFitness() { return ((speed + sight + hunger) / 3); }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="variance"></param>
-        public void Mutate(float variance = 0.05f)
+        public void Mutate()
         {
+            float mutate = Random.Range(0.025f, 0.075f);
+
             switch (Random.Range(0, 2))
             {
                 case 0:
-                    speed *= Random.Range(1 - variance, 1 + variance);
+                    speed *= Random.Range(1 - mutate, 1 + mutate);
                     break;
                 case 1:
-                    sight *= Random.Range(1 - variance, 1 + variance);
+                    sight *= Random.Range(1 - mutate, 1 + mutate);
                     break;
                 case 2:
-                    hunger *= Random.Range(1 - variance, 1 + variance);
+                    hunger *= Random.Range(1 - mutate, 1 + mutate);
                     break;
             }
         }

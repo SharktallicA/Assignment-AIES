@@ -18,6 +18,16 @@ class WorkerAnt : Entity
        GetComponent<StateMachine>().ChangeState(new FindingFoodState(GetComponent<StateMachine>(), this));
     }
 
+    public override void derivedUpdate()
+    {
+        //Rotate food if present
+        if (transform.childCount > 1)
+        {
+            if (transform.GetChild(1).localRotation.eulerAngles != new Vector3(90, 0, 0))
+                transform.GetChild(1).localRotation = Quaternion.Lerp(transform.GetChild(1).localRotation, Quaternion.Euler(new Vector3(90, 0, 0)), dna.speed * 3f * Time.deltaTime);
+        }
+    }
+
     /// <summary>
     /// Interrupts what the ant is doing to make it make with the Queen
     /// </summary>

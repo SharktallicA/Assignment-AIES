@@ -64,8 +64,8 @@ namespace Assets.Code.FSM
             //check if fungi needs to grow
             if (parent.transform.localScale.x < targetScale)
             {
-                int rand = Random.Range(0, 50);
-                if (rand == 25)
+                int rand = Random.Range(0, 75);
+                if (rand == 50)
                     parent.transform.localScale += new Vector3(0.0125f, 0.0125f, 0.0125f);
             }
             else Transition();

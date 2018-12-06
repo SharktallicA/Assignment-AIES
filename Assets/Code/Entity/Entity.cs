@@ -43,6 +43,7 @@ public class Entity : MonoBehaviour
     private void Start()
     {
         controller = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        anim = transform.GetChild(0).GetComponent<Animator>();
         derivedStart();
     }
 
@@ -58,7 +59,6 @@ public class Entity : MonoBehaviour
     /// <returns></returns>
     public bool MoveTo(Vector3 targetPos, float targetRange = 0.1f, float speed = 1f, float modifier = 1f)
     {
-        if (anim) anim.speed = speed;
         if (Vector3.Distance(targetPos, transform.position) > targetRange)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPos, (speed * modifier) * Time.deltaTime);
@@ -79,6 +79,6 @@ public class Entity : MonoBehaviour
     public void Tick(float nTick = 1)
     {
         tick += nTick;
-        if (tick <= 0f) Object.Destroy(gameObject);
+        if (tick <= 0f) Destroy(gameObject);
     }
 }

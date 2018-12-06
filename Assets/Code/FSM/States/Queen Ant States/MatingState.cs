@@ -80,6 +80,7 @@ namespace Assets.Code.FSM
             else target = potentials[0];
 
             ((WorkerAnt)target).GivePheromone(parent.transform.position);
+            parent.transform.GetChild(0).GetComponent<Animator>().enabled = true;
         }
 
         /// <summary>
@@ -87,10 +88,13 @@ namespace Assets.Code.FSM
         /// </summary>
         public override void Update()
         {
+            //Look at mate
+            parent.transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(parent.transform.forward, target.transform.position - parent.transform.position, ((QueenAnt)parent).dna.speed / 5 * Time.deltaTime, 0.0f));
+            if (parent.transform.rotation == Quaternion.LookRotation(Vector3.RotateTowards(parent.transform.forward, target.transform.position - parent.transform.position, ((QueenAnt)parent).dna.speed / 5 * Time.deltaTime, 0.0f)))
+                parent.transform.GetChild(0).GetComponent<Animator>().enabled = false;
+
             if (Vector3.Distance(target.transform.position, parent.transform.position) < 0.25f && !happened)
             {
-                Debug.Log("Making babies ;)");
-
                 //Create new DNA strand based on a 50/50 splice of both parent's DNA
                 DNA dna = new DNA();
                 dna.speed = Random.Range(0f, 1f) < 0.5 ? ((QueenAnt)parent).dna.speed : ((WorkerAnt)target).dna.speed;
@@ -110,6 +114,7 @@ namespace Assets.Code.FSM
 
                 happened = true;
 
+                parent.transform.GetChild(0).GetComponent<Animator>().enabled = false;
                 Transition();
                 return;
             }

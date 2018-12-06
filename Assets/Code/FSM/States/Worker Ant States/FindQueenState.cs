@@ -38,6 +38,13 @@ namespace Assets.Code.FSM
         {
             if (sm.debug) Debug.Log(parent.transform.name + ": entered Find Queen State");
             base.Start();
+            //if queen dead, kill ant
+            if (Object.FindObjectsOfType<QueenAnt>().Length == 0)
+            {
+                endState = new DyingState(sm, parent);
+                Transition();
+                return;
+            }
             endState = new FeedQueenState(sm, parent);
             target = Object.FindObjectsOfType<QueenAnt>()[0];
         }
@@ -49,19 +56,21 @@ namespace Assets.Code.FSM
         {
             base.Update();
 
+            //if queen dead, kill ant
+            if (Object.FindObjectsOfType<QueenAnt>().Length == 0)
+            {
+                endState = new DyingState(sm, parent);
+                Transition();
+                return;
+            }
+
             //if food dies, go back to finding food
             if (parent.transform.childCount == 1)
             {
                 endState = new FindingFoodState(sm, parent);
                 Transition();
                 return;
-            }
-            
-            //Rotate food if present
-            if (parent.transform.GetChild(1).localRotation.eulerAngles != new Vector3(90, 0, 0))
-                parent.transform.GetChild(1).localRotation = Quaternion.Lerp(parent.transform.GetChild(1).localRotation, Quaternion.Euler(new Vector3(90, 0, 0)), ((WorkerAnt)parent).dna.speed * 3f * Time.deltaTime);
-
-            //Move towards queen
+            } //Move towards queen
             if (parent.MoveTo(target.transform.position, ((WorkerAnt)parent).dna.sight, ((WorkerAnt)parent).dna.speed))
                 Transition();
         }

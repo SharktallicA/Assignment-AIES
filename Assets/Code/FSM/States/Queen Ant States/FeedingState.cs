@@ -55,15 +55,11 @@ namespace Assets.Code.FSM
             }
 
             //Check if queen is feed
-            if (((QueenAnt)parent).feed > ((QueenAnt)parent).feedingThreshold)
+            if (((QueenAnt)parent).feed >= ((QueenAnt)parent).feedingThreshold)
             {
-                //randomly trigger mating
-                if (Random.Range(0, 100) == 50)
-                {
-                    Transition();
-                    ((QueenAnt)parent).feed = 0;
-                    ((QueenAnt)parent).feedingThreshold++;
-                }
+                ((QueenAnt)parent).feed -= ((QueenAnt)parent).feedingThreshold;
+                ((QueenAnt)parent).feedingThreshold++;
+                Transition();
             }
         }
     }
