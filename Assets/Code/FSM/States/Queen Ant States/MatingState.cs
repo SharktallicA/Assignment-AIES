@@ -113,9 +113,6 @@ namespace Assets.Code.FSM
                 GameObject obj = Object.Instantiate(target.selfPrefab[0], newLocation, newRotation) as GameObject;
                 obj.GetComponent<WorkerAnt>().dna = dna;
 
-                while (obj.transform.childCount > 2)
-                    Object.Destroy(obj.transform.GetChild(1).gameObject);
-
                 Debug.Log("Speed: " + dna.speed + ", hunger: " + dna.hunger + ", sight: " + dna.sight);
 
                 happened = true;
