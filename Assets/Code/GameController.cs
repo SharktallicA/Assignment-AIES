@@ -20,7 +20,7 @@ public class GameController : MonoBehaviour
     /// 
     /// </summary>
     [SerializeField]
-    private int fungiCount = 2;
+    private int fungiCount = 20;
 
     /// <summary>
     /// 

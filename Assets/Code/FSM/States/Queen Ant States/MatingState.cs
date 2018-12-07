@@ -73,8 +73,11 @@ namespace Assets.Code.FSM
                 for (int i = 0; i < potentials.Length; i++)
                 {
                     rouletteSum += potentials[i].dna.GetFitness();
-                    if (rouletteSum > rouletteTarget)
+                    if (rouletteSum >= rouletteTarget)
+                    {
                         target = potentials[i];
+                        break;
+                    }
                 }
             }
             else target = potentials[0];
@@ -109,6 +112,9 @@ namespace Assets.Code.FSM
                 Quaternion newRotation = Quaternion.Euler(new Vector3(0, 0, 0));
                 GameObject obj = Object.Instantiate(target.selfPrefab[0], newLocation, newRotation) as GameObject;
                 obj.GetComponent<WorkerAnt>().dna = dna;
+
+                while (obj.transform.childCount > 2)
+                    Object.Destroy(obj.transform.GetChild(1).gameObject);
 
                 Debug.Log("Speed: " + dna.speed + ", hunger: " + dna.hunger + ", sight: " + dna.sight);
 
