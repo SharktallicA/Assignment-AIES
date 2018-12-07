@@ -1,22 +1,17 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// 
+/// Base class for all entities (AI agents)
 /// </summary>
 public class Entity : MonoBehaviour
 {
     /// <summary>
-    /// 
-    /// </summary>
-    //private DNA dna;
-
-    /// <summary>
-    /// 
+    /// Reference to scene's game controller
     /// </summary>
     public GameController controller;
 
     /// <summary>
-    /// 
+    /// Reference to entities' self prefab and variables
     /// </summary>
     public GameObject[] selfPrefab;
 
@@ -26,15 +21,16 @@ public class Entity : MonoBehaviour
     protected Animator anim;
 
     /// <summary>
-    /// 
+    /// Allows subclasses to pass their own Start-requiring functionality
     /// </summary>
-    protected float tick = 0f;
-
     public virtual void derivedStart()
     {
 
     }
 
+    /// <summary>
+    /// Allows subclasses to pass their own Update-requiriing functionality
+    /// </summary>
     public virtual void derivedUpdate()
     {
 
@@ -53,10 +49,13 @@ public class Entity : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Universal entitiy movement function
     /// </summary>
-    /// <param name="targetPos"></param>
-    /// <returns></returns>
+    /// <param name="targetPos">Position to transit to</param>
+    /// <param name="targetRange">Range in which transit is considered complete</param>
+    /// <param name="speed">Speed of both movement and movement animation</param>
+    /// <param name="modifier">A specified speed modifier for when needed</param>
+    /// <returns>Returns true when entity has reached target position</returns>
     public bool MoveTo(Vector3 targetPos, float targetRange = 0.1f, float speed = 1f, float modifier = 1f)
     {
         if (Vector3.Distance(targetPos, transform.position) > targetRange)
@@ -71,14 +70,5 @@ public class Entity : MonoBehaviour
             if (anim) anim.enabled = false;
             return true;
         }
-    }
-    
-    /// <summary>
-    /// 
-    /// </summary>
-    public void Tick(float nTick = 1)
-    {
-        tick += nTick;
-        if (tick <= 0f) Destroy(gameObject);
     }
 }

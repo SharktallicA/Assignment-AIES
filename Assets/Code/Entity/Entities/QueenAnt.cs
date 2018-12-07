@@ -3,12 +3,12 @@ using Assets.Code.FSM;
 using UnityEngine;
 
 /// <summary>
-/// 
+/// Entity subclass for Queen Ant agent
 /// </summary>
 class QueenAnt : Entity
 {
     /// <summary>
-    /// 
+    /// Entity's DNA properties
     /// </summary>
     public DNA dna;
 
@@ -18,19 +18,21 @@ class QueenAnt : Entity
     public float hunger = 100f;
 
     /// <summary>
-    /// 
+    /// Count of food the queen has been given
     /// </summary>
     public int feed = 1;
 
     /// <summary>
-    /// 
+    /// Threshold in which food is used for mating
     /// </summary>
     public int feedingThreshold = 5;
 
     public override void derivedStart()
     {
         dna = new DNA();
+        //Set initial state
         GetComponent<StateMachine>().ChangeState(new FeedingState(GetComponent<StateMachine>(), this));
+        //Disable start animation
         transform.GetChild(0).GetComponent<Animator>().enabled = false;
         transform.GetChild(0).GetComponent<Animator>().speed = dna.speed / 2;
     }
@@ -41,9 +43,9 @@ class QueenAnt : Entity
     }
 
     /// <summary>
-    /// 
+    /// Allows Worker Ants to give food to the queen, resetting hunger and increases feed stat
     /// </summary>
-    /// <param name="food"></param>
+    /// <param name="food">Reference to Fungi subclass as food</param>
     public void GiveFood(Fungi food)
     {
         food.transform.SetParent(transform);

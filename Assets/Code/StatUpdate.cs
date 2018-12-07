@@ -1,20 +1,23 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Updates UI for displaying relevant data about the agents
+/// </summary>
 public class StatUpdate : MonoBehaviour
 {
     /// <summary>
-    /// 
+    /// Reference to ant population display text
     /// </summary>
     Text AntPop;
 
     /// <summary>
-    /// 
+    /// Reference to avg. ant fitness display text
     /// </summary>
     Text AntFit;
 
     /// <summary>
-    /// 
+    /// Reference to fungi population display trext
     /// </summary>
     Text FungiPop;
 
@@ -33,7 +36,7 @@ public class StatUpdate : MonoBehaviour
         WorkerAnt[] ants = FindObjectsOfType<WorkerAnt>();
         QueenAnt[] queens = FindObjectsOfType<QueenAnt>();
 
-        //calculate initial fitness sum
+        //calculate fitness sum
         float fitnessSum = 0;
         for (int i = 0; i < ants.Length; i++)
             fitnessSum += ants[i].dna.GetFitness();

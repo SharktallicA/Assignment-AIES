@@ -1,27 +1,22 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// 
+/// Used for generating scene foliage
 /// </summary>
 public class Foliage : MonoBehaviour
 {
     /// <summary>
-    /// 
+    /// Direction the plant faces
     /// </summary>
     private float direction;
 
     /// <summary>
-    /// 
-    /// </summary>
-    private float threshold;
-
-    /// <summary>
-    /// 
+    /// Speed in which the plant sways
     /// </summary>
     private float speed;
 
     /// <summary>
-    /// 
+    /// Ayy
     /// </summary>
     private bool flip = true;
 
